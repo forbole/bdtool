@@ -5,10 +5,10 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/go-git/go-git/v5"
 	gitcmd "github.com/forbole/bdtool/gitcmd"
 	"github.com/forbole/bdtool/types"
 	"github.com/forbole/bdtool/utils"
+	"github.com/go-git/go-git/v5"
 )
 
 type Repo struct {
@@ -18,6 +18,8 @@ type Repo struct {
 	Path           string
 	GitHubToken    string
 	PrTargetBranch string
+	IconFileName   string
+	LogoFileName   string
 }
 
 func New(repoURL, cloneBranch, prTargetBranch string, chainInfo *types.Chain, chainConfig *types.ChainConfig, GitHubToken string) *Repo {
@@ -84,11 +86,14 @@ func (r *Repo) CopyImages() *Repo {
 	// Copy logo
 	copy(logoPath, fmt.Sprintf("%s/%s", imgDir, logoFileName))
 
+	r.IconFileName = iconFileName
+	r.LogoFileName = logoFileName
+
 	return r
 }
 
 func (r *Repo) Commit() *Repo {
-	gitcmd.Commit(r.ChainInfo, r.Repo)
+	gitcmd.Commit(r.ChainInfo, r.Repo, r.IconFileName, r.LogoFileName)
 	return r
 }
 

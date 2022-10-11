@@ -4,25 +4,40 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-git/go-git/v5"
-	"github.com/go-git/go-git/v5/plumbing/object"
 	"github.com/forbole/bdtool/types"
 	"github.com/forbole/bdtool/utils"
+	"github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/plumbing/object"
 )
 
-func Commit(chain *types.Chain, repo *git.Repository) {
+func Commit(chain *types.Chain, repo *git.Repository, iconFileName, logoFileName string) {
 	w, err := repo.Worktree()
 	utils.CheckError(err)
 
 	Info("git add %s-%s.json", chain.Name, chain.Type)
 
-	filename := fmt.Sprintf("src/configs/chain_configs/%s-%s.json", chain.Name, chain.Type)
-	_, err = w.Add(filename)
+	// git add config file
+	cfgFile := fmt.Sprintf("src/configs/chain_configs/%s-%s.json", chain.Name, chain.Type)
+	_, err = w.Add(cfgFile)
 	if err != nil {
-		utils.CheckError(fmt.Errorf("error while adding %s: %s", filename, err))
+		utils.CheckError(fmt.Errorf("error while adding %s: %s", cfgFile, err))
 	}
 
-	Info("committing config file, please enter Author Name and Email:")
+	// git add icon file
+	iconFile := fmt.Sprintf("public/images/%s/%s", chain.Name, iconFileName)
+	_, err = w.Add(iconFile)
+	if err != nil {
+		utils.CheckError(fmt.Errorf("error while adding %s: %s", iconFile, err))
+	}
+
+	// git add logo file
+	logoFile := fmt.Sprintf("public/images/%s/%s", chain.Name, logoFileName)
+	_, err = w.Add(logoFile)
+	if err != nil {
+		utils.CheckError(fmt.Errorf("error while adding %s: %s", logoFile, err))
+	}
+
+	Info("performing git commit, please enter Author Name and Email:")
 
 	author := utils.GetInput("Author Name")
 	email := utils.GetInput("Author Email")
