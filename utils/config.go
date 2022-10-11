@@ -37,9 +37,9 @@ func getConfigFromFile() *types.ChainConfig {
 }
 
 func getConfigFromCLI(chain *types.Chain) *types.ChainConfig {
-	title := GetInput("Title (Desmos Block Explorer)")
-	network := GetInput("Network Name (desmos-mainnet)")
-	prefix := GetInput("Chain Prefix (desmos)")
+	title := GetInput("Title (chain Block Explorer)")
+	network := GetInput("Network Name (chain-mainnet)")
+	prefix := GetInput("Chain Prefix (chain)")
 	genesisTime := GetInput("Genesis Time (2021-08-31T15:00:00)")
 	genesisHeight := GetInput("Genesis Height")
 	primaryTokenUnit := GetInput("Primary Token Unit (udsm)")
@@ -48,8 +48,8 @@ func getConfigFromCLI(chain *types.Chain) *types.ChainConfig {
 	graphqlEndpoint := GetInput("Graphql Endpoint (https://example.com/v1/graphql)")
 	graphqlWs := GetInput("Graphql Web Socket (wss://example.com/v1/graphql)")
 	publicRpcWs := GetInput("Public Rpc Websocket (wss://rpc.example.com/websocket)")
-	basePath := GetInput("URL base path (/desmos)")
-	previewImage := GetInput("Preview image (https://s3.example.com/desmos.png)")
+	basePath := GetInput("URL base path (/chain)")
+	previewImage := GetInput("Preview image (https://s3.example.com/chain.png)")
 	matomoURL := GetInput("Matomo URL (https://example.bigdipper.live)")
 	matomoSiteID := GetInput("Matomo Site ID (1)")
 	defaultTheme := GetInput("Default Theme (light)")
