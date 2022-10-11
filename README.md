@@ -7,8 +7,8 @@ bdtool is a tool for automatically creating config file that allows to build a B
 ## Info Preparation
 - Chain name (e.g. desmos)
 - Chain type (e.g. mainnet / testnet)
-- GitHub personal access token
-- Neccessary configs, you choose to
+- GitHub personal access token (can be created here: https://github.com/settings/tokens/new)
+- Neccessary configs, you may choose to
   - enter the configs through CLI, OR
   - upload a json file(in this case, prepare the `config file path`)
 - Path to the chain's icon & logo file
