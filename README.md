@@ -10,8 +10,8 @@ bdtool is a tool for automatically creating config file that allows to build a B
 - GitHub personal access token
 - Neccessary configs, you choose to
   - enter the configs through CLI, OR
-  - upload a json file(in this case, prepare the config file path)
-- Path of the chain's icon & logo file
+  - upload a json file(in this case, prepare the `config file path`)
+- Path to the chain's icon & logo file
 
 ## Usage
 - Enter `bdtool` in your terminal
