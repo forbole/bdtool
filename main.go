@@ -14,7 +14,7 @@ var (
 func main() {
 	// Ask for neccessary info
 	chainInfo := utils.GetChainInfo()
-	GitHubToken := utils.GetTokenInput("GitHub Personal Access Token")
+	GitHubToken := utils.GetPassword("GitHub Personal Access Token")
 	chainConfig := utils.GetConfig(chainInfo)
 
 	repo := gitrepo.New(
@@ -25,7 +25,7 @@ func main() {
 	// Execute "git checkout -b chains/{chain name}/{chain type}"
 	repo.Checkout()
 
-	// Write config file; Copy chain's icon and logo
+	// Write config file & Copy chain's icon and logo
 	repo.WriteConfig().CopyImages()
 
 	// Commit, push, and open PR

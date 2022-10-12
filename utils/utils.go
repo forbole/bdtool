@@ -22,7 +22,7 @@ func GetInput(question string) string {
 	return result
 }
 
-func GetTokenInput(question string) string {
+func GetPassword(question string) string {
 	instruction := fmt.Sprintf("\x1b[%dm%s\x1b[0m", 34, "Enter GitHub Personal Access Token. You can generate one at https://github.com/settings/tokens/new")
 	fmt.Println(instruction)
 
