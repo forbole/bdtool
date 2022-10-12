@@ -13,7 +13,7 @@ import (
 
 type Repo struct {
 	Repo           *git.Repository
-	ChainInfo      *types.Chain
+	ChainInfo      *types.ChainInfo
 	ChainConfig    *types.ChainConfig
 	Path           string
 	GitHubToken    string
@@ -22,7 +22,7 @@ type Repo struct {
 	LogoFileName   string
 }
 
-func New(repoURL, cloneBranch, prTargetBranch string, chainInfo *types.Chain, chainConfig *types.ChainConfig, GitHubToken string) *Repo {
+func New(repoURL, cloneBranch, prTargetBranch string, chainInfo *types.ChainInfo, chainConfig *types.ChainConfig, GitHubToken string) *Repo {
 	// Prepare file destination
 	path, err := prepareFileDest()
 	if err != nil {

@@ -4,12 +4,12 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/google/go-github/github"
 	"github.com/forbole/bdtool/types"
+	"github.com/google/go-github/github"
 	"golang.org/x/oauth2"
 )
 
-func PullRequest(chain *types.Chain, targetBranch string, GitHubToken string) error {
+func PullRequest(chain *types.ChainInfo, targetBranch string, GitHubToken string) error {
 	client := github.NewClient(oauth2.NewClient(
 		context.Background(),
 		oauth2.StaticTokenSource(

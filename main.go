@@ -29,7 +29,8 @@ func main() {
 	repo.WriteConfig().CopyImages()
 
 	// Commit, push, and open PR
-	repo.Commit().Push().PullRequest()
+	repo.Commit()
+	// .Push().PullRequest()
 
 	// Remove temporal repo when all is done
 	repo.RemoveDir()

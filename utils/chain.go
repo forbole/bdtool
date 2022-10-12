@@ -6,11 +6,11 @@ import (
 	"github.com/forbole/bdtool/types"
 )
 
-func GetChainInfo() *types.Chain {
+func GetChainInfo() *types.ChainInfo {
 	chainName := GetInput("Chain Name")
 	chainType := GetInput("Chain Type (mainnet, testnet, or other)")
 
-	return &types.Chain{
+	return &types.ChainInfo{
 		Name: strings.ToLower(chainName),
 		Type: strings.ToLower(chainType),
 	}

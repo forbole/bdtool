@@ -1,9 +1,12 @@
 package utils
 
 import (
+	"bytes"
 	"fmt"
 	"os"
+	"os/exec"
 	"strconv"
+	"strings"
 
 	"github.com/forbole/bdtool/types"
 	"github.com/manifoldco/promptui"
@@ -247,4 +250,20 @@ func CheckError(err error) {
 
 	fmt.Printf("\x1b[31;1m%s\x1b[0m\n", fmt.Sprintf("error: %s", err))
 	os.Exit(1)
+}
+
+func GetGitConfig(field string) (string, error) {
+	cmd := exec.Command("git", "config", field)
+
+	var outb, errb bytes.Buffer
+	cmd.Stdout = &outb
+	cmd.Stderr = &errb
+
+	err := cmd.Run()
+
+	if err != nil {
+		return "", err
+	}
+
+	return strings.TrimSuffix(outb.String(), "\n"), nil
 }

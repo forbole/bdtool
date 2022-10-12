@@ -9,7 +9,7 @@ import (
 	"github.com/forbole/bdtool/types"
 )
 
-func GetConfig(chain *types.Chain) *types.ChainConfig {
+func GetConfig(chain *types.ChainInfo) *types.ChainConfig {
 	if ConfigWithCLI() {
 		return getConfigFromCLI(chain)
 	}
@@ -36,7 +36,7 @@ func getConfigFromFile() *types.ChainConfig {
 	return &chainConfig
 }
 
-func getConfigFromCLI(chain *types.Chain) *types.ChainConfig {
+func getConfigFromCLI(chain *types.ChainInfo) *types.ChainConfig {
 	title := GetInput("Title (Desmos Block Explorer)")
 	network := GetInput("Network Name (desmos-mainnet)")
 	prefix := GetInput("Chain Prefix (desmos)")
