@@ -36,7 +36,7 @@ func PullRequest(chain *types.ChainInfo, targetBranch string, GitHubToken string
 	}
 
 	// Add label "chainconfig"
-	_, _, err = client.Issues.AddLabelsToIssue(context.Background(), "forbole", "big-dipper-2.0-cosmos", *pr.Number, []string{"chainconfig"})
+	_, _, err = client.Issues.AddLabelsToIssue(context.Background(), "forbole", "big-dipper-2.0-cosmos", *pr.Number, []string{"chain config"})
 	if err != nil {
 		return fmt.Errorf("error while adding label(s): %s", err)
 	}
