@@ -45,7 +45,7 @@ func getConfigFromCLI(chain *types.ChainInfo) *types.ChainConfig {
 	primaryTokenUnit := GetInput("Primary Token Unit (e.g. udsm)")
 	votingPowerTokenUnit := GetInput("Voting Power Token Unit (e.g. udsm)")
 	tokenUnits := getTokenUnits()
-	graphqlEndpoint := GetInput("Graphql Endpoint (https://example.com/v1/graphql)")
+	graphqlEndpoint := GetInput("GraphQL Endpoint (e.g. https://example.com/v1/graphql)")
 	graphqlWs := GetInput("Graphql Web Socket (wss://example.com/v1/graphql)")
 	publicRpcWs := GetInput("Public Rpc Websocket (wss://rpc.example.com/websocket)")
 	basePath := GetInput("URL Base Path (e.g. /desmos)")
