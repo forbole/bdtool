@@ -39,7 +39,7 @@ func getConfigFromFile() *types.ChainConfig {
 func getConfigFromCLI(chain *types.ChainInfo) *types.ChainConfig {
 	title := GetInput("Title (e.g. Desmos Block Explorer)")
 	network := GetInput("Network Name (e.g. desmos-mainnet)")
-	prefix := GetInput("Chain Prefix (desmos)")
+	prefix := GetInput("Chain Prefix (e.g. desmos)")
 	genesisTime := GetInput("Genesis Time (2021-08-31T15:00:00)")
 	genesisHeight := GetInput("Genesis Height")
 	primaryTokenUnit := GetInput("Primary Token Unit (udsm)")
