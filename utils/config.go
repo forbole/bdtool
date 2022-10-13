@@ -82,7 +82,7 @@ func getConfigFromCLI(chain *types.ChainInfo) *types.ChainConfig {
 		Endpoints: types.Endpoints{
 			Graphql:            graphqlEndpoint,
 			GraphqlWebsocket:   graphqlWs,
-			PublicRpcWebsocket: publicRpcWs,
+			PublicRPCWebsocket: publicRpcWs,
 		},
 		General: types.General{
 			BasePath:     basePath,
