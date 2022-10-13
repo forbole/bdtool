@@ -16,7 +16,7 @@ type Repo struct {
 	Repo         *git.Repository
 	ChainInfo    *types.ChainInfo
 	ChainConfig  *types.ChainConfig
-	Path         string
+	Directory    string
 	GitConfig    *gittypes.GitConfig
 	IconFileName string
 	LogoFileName string
@@ -24,19 +24,19 @@ type Repo struct {
 
 func New(chainInfo *types.ChainInfo, chainConfig *types.ChainConfig, gitConfig *gittypes.GitConfig) *Repo {
 	// Prepare file destination
-	path, err := prepareFileDest()
+	directory, err := prepareFileDest()
 	if err != nil {
 		utils.CheckError(err)
 	}
 
 	// Clone the repo
-	repo := gitcmd.Clone(gitConfig.RepoURL, path, gitConfig.CloneBranch)
+	repo := gitcmd.Clone(gitConfig.RepoURL, directory, gitConfig.CloneBranch)
 
 	return &Repo{
 		Repo:        repo,
 		ChainConfig: chainConfig,
 		ChainInfo:   chainInfo,
-		Path:        path,
+		Directory:   directory,
 		GitConfig:   gitConfig,
 	}
 }
@@ -49,7 +49,7 @@ func (r *Repo) Checkout() *Repo {
 }
 
 func (r *Repo) WriteConfig() *Repo {
-	file := fmt.Sprintf("%s/src/configs/chain_configs/%s-%s.json", r.Path, r.ChainInfo.Name, r.ChainInfo.Type)
+	file := fmt.Sprintf("%s/src/configs/chain_configs/%s-%s.json", r.Directory, r.ChainInfo.Name, r.ChainInfo.Type)
 
 	_, err := os.Create(file)
 	if err != nil {
@@ -65,7 +65,7 @@ func (r *Repo) WriteConfig() *Repo {
 }
 
 func (r *Repo) CopyImages() *Repo {
-	imgDir := fmt.Sprintf("%s/public/images/%s", r.Path, r.ChainInfo.Name)
+	imgDir := fmt.Sprintf("%s/public/images/%s", r.Directory, r.ChainInfo.Name)
 	err := os.MkdirAll(imgDir, os.ModePerm)
 	if err != nil {
 		panic(err)
@@ -110,13 +110,13 @@ func (r *Repo) PullRequest() *Repo {
 	return r
 }
 
-func (r *Repo) RemoveDir() {
-	remove := utils.GetBool("remove temporal directory")
+func (r *Repo) Remove() {
+	remove := utils.GetBool("Remove temporal cloned directory")
 	if !remove {
 		return
 	}
 
-	err := os.RemoveAll(r.Path)
+	err := os.RemoveAll(r.Directory)
 	if err != nil {
 		utils.CheckError(fmt.Errorf("error while removing temp_BD directory : %s", err))
 	}

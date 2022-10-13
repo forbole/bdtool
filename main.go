@@ -23,5 +23,5 @@ func main() {
 	repo.Commit().Push().PullRequest()
 
 	// Remove temporal repo when all is done
-	repo.RemoveDir()
+	repo.Remove()
 }
