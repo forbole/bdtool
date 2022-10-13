@@ -5,22 +5,13 @@ import (
 	"github.com/forbole/bdtool/utils"
 )
 
-var (
-	REPO_URL         = "https://github.com/forbole/big-dipper-2.0-cosmos"
-	CLONE_BRANCH     = "refs/heads/bdu-585-improve-setup-process"
-	PR_TARGET_BRANCH = "refs/heads/bdu-585-improve-setup-process-clone"
-)
-
 func main() {
 	// Ask for neccessary info
 	chainInfo := utils.GetChainInfo()
-	GitHubToken := utils.GetPassword("GitHub Personal Access Token")
-	chainConfig := utils.GetConfig(chainInfo)
+	gitConfig := utils.GetGitConfig()
+	chainConfig := utils.GetChainConfig(chainInfo)
 
-	repo := gitrepo.New(
-		REPO_URL, CLONE_BRANCH, PR_TARGET_BRANCH,
-		chainInfo, chainConfig, GitHubToken,
-	)
+	repo := gitrepo.New(chainInfo, chainConfig, gitConfig)
 
 	// Execute "git checkout -b chains/{chain name}/{chain type}"
 	repo.Checkout()

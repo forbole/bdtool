@@ -9,12 +9,12 @@ import (
 	"golang.org/x/oauth2"
 )
 
-func PullRequest(chain *types.ChainInfo, targetBranch string, GitHubToken string) error {
+func PullRequest(chain *types.ChainInfo, targetBranch string, AccessToken string, organization string, repoName string) error {
 	client := github.NewClient(oauth2.NewClient(
 		context.Background(),
 		oauth2.StaticTokenSource(
 			&oauth2.Token{
-				AccessToken: GitHubToken,
+				AccessToken: AccessToken,
 			},
 		),
 	))
@@ -22,8 +22,8 @@ func PullRequest(chain *types.ChainInfo, targetBranch string, GitHubToken string
 	// Create PR
 	pr, _, err := client.PullRequests.Create(
 		context.Background(),
-		"forbole",
-		"big-dipper-2.0-cosmos",
+		organization,
+		repoName,
 		&github.NewPullRequest{
 			Title:               github.String(fmt.Sprintf("Create new chain config: %s-%s.json", chain.Name, chain.Type)),
 			Head:                github.String(fmt.Sprintf("refs/heads/chains/%s/%s", chain.Name, chain.Type)),

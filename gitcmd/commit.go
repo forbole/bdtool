@@ -10,7 +10,7 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/object"
 )
 
-func Commit(chain *types.ChainInfo, repo *git.Repository, iconFileName, logoFileName string) {
+func Commit(chain *types.ChainInfo, repo *git.Repository, iconFileName, logoFileName, author, email string) {
 	w, err := repo.Worktree()
 	utils.CheckError(err)
 
@@ -38,16 +38,6 @@ func Commit(chain *types.ChainInfo, repo *git.Repository, iconFileName, logoFile
 	}
 
 	Info("performing git commit, please enter Author Name and Email:")
-
-	author, err := utils.GetGitConfig("user.name")
-	if err != nil {
-		author = utils.GetInput("Author Name")
-	}
-
-	email, err := utils.GetGitConfig("user.email")
-	if err != nil {
-		email = utils.GetInput("Author Email")
-	}
 
 	commitMsg := fmt.Sprintf("add config file for %s %s", chain.Name, chain.Type)
 	commit, err := w.Commit(commitMsg, &git.CommitOptions{

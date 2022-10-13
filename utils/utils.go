@@ -9,7 +9,14 @@ import (
 	"strings"
 
 	"github.com/forbole/bdtool/types"
+	gittypes "github.com/forbole/bdtool/types/git"
 	"github.com/manifoldco/promptui"
+)
+
+var (
+	// Will be changed to base
+	CLONE_BRANCH     = "refs/heads/bdu-585-improve-setup-process"
+	PR_TARGET_BRANCH = "refs/heads/bdu-585-improve-setup-process-clone"
 )
 
 func GetInput(question string) string {
@@ -19,16 +26,13 @@ func GetInput(question string) string {
 
 	result, err := prompt.Run()
 	if err != nil {
-		CheckError(fmt.Errorf("prompt failed %v", err))
+		CheckError(fmt.Errorf("failed to get input: %v", err))
 	}
 
 	return result
 }
 
 func GetPassword(question string) string {
-	instruction := fmt.Sprintf("\x1b[%dm%s\x1b[0m", 34, "Enter GitHub Personal Access Token. You can generate one at https://github.com/settings/tokens/new")
-	fmt.Println(instruction)
-
 	prompt := promptui.Prompt{
 		Label: question,
 		Mask:  '*',
@@ -36,7 +40,7 @@ func GetPassword(question string) string {
 
 	result, err := prompt.Run()
 	if err != nil {
-		CheckError(fmt.Errorf("prompt failed %v", err))
+		CheckError(fmt.Errorf("failed to get password: %v", err))
 	}
 
 	return result
@@ -55,7 +59,7 @@ func GetBool(question string) bool {
 
 	_, result, err := prompt.Run()
 	if err != nil {
-		CheckError(fmt.Errorf("prompt failed %v", err))
+		CheckError(fmt.Errorf("failed to get answer: %v", err))
 	}
 
 	if result == "YES" {
@@ -73,7 +77,7 @@ func ConfigWithCLI() bool {
 
 	_, result, err := prompt.Run()
 	if err != nil {
-		CheckError(fmt.Errorf("prompt failed %v", err))
+		CheckError(fmt.Errorf("failed to get answer: %v", err))
 	}
 
 	if result == "config with CLI inputs" {
@@ -252,7 +256,7 @@ func CheckError(err error) {
 	os.Exit(1)
 }
 
-func GetGitConfig(field string) (string, error) {
+func getGitAuthor(field string) (string, error) {
 	cmd := exec.Command("git", "config", field)
 
 	var outb, errb bytes.Buffer
@@ -266,4 +270,45 @@ func GetGitConfig(field string) (string, error) {
 	}
 
 	return strings.TrimSuffix(outb.String(), "\n"), nil
+}
+
+func GetGitConfig() *gittypes.GitConfig {
+
+	// Get git user and email from local store, ask user input if fail
+	author, err := getGitAuthor("user.name")
+	if err != nil {
+		author = GetInput("Author Name")
+	}
+	email, err := getGitAuthor("user.email")
+	if err != nil {
+		email = GetInput("Author Email")
+	}
+
+	// Get Repository URL
+	repoURL := GetInput("Repository URL")
+
+	// Get repo orga and repo name from URL
+	urlSlice := strings.Split(repoURL, "/")
+	if len(urlSlice) < 5 {
+		CheckError(fmt.Errorf("please enter valid repo url \n e.g. https://github.com/forbole/big-dipper-2.0-cosmos"))
+	}
+	orga := urlSlice[len(urlSlice)-2]
+	repoName := urlSlice[len(urlSlice)-1]
+
+	fmt.Printf("\x1b[%dm%s\x1b[0m", 34, "Enter GitHub Personal Access Token")
+	accessToken := GetPassword("GitHub Personal Access Token (generate one at https://github.com/settings/tokens/new)")
+
+	return &gittypes.GitConfig{
+		// Repo
+		CloneBranch:    CLONE_BRANCH,
+		PrTargetBranch: PR_TARGET_BRANCH,
+		RepoURL:        repoURL,
+		RepoOrga:       orga,
+		RepoName:       repoName,
+
+		// User
+		Username:    author,
+		Email:       email,
+		AccessToken: accessToken,
+	}
 }

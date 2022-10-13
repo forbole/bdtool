@@ -9,14 +9,14 @@ import (
 	"github.com/forbole/bdtool/types"
 )
 
-func GetConfig(chain *types.ChainInfo) *types.ChainConfig {
+func GetChainConfig(chain *types.ChainInfo) *types.ChainConfig {
 	if ConfigWithCLI() {
 		return getConfigFromCLI(chain)
 	}
-	return getConfigFromFile()
+	return getChainConfigFromFile()
 }
 
-func getConfigFromFile() *types.ChainConfig {
+func getChainConfigFromFile() *types.ChainConfig {
 	path := GetInput("Enter config json file path")
 
 	jsonConfig, err := os.Open(path)

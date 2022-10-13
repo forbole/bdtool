@@ -7,22 +7,22 @@ import (
 
 	gitcmd "github.com/forbole/bdtool/gitcmd"
 	"github.com/forbole/bdtool/types"
+	gittypes "github.com/forbole/bdtool/types/git"
 	"github.com/forbole/bdtool/utils"
 	"github.com/go-git/go-git/v5"
 )
 
 type Repo struct {
-	Repo           *git.Repository
-	ChainInfo      *types.ChainInfo
-	ChainConfig    *types.ChainConfig
-	Path           string
-	GitHubToken    string
-	PrTargetBranch string
-	IconFileName   string
-	LogoFileName   string
+	Repo         *git.Repository
+	ChainInfo    *types.ChainInfo
+	ChainConfig  *types.ChainConfig
+	Path         string
+	GitConfig    *gittypes.GitConfig
+	IconFileName string
+	LogoFileName string
 }
 
-func New(repoURL, cloneBranch, prTargetBranch string, chainInfo *types.ChainInfo, chainConfig *types.ChainConfig, GitHubToken string) *Repo {
+func New(chainInfo *types.ChainInfo, chainConfig *types.ChainConfig, gitConfig *gittypes.GitConfig) *Repo {
 	// Prepare file destination
 	path, err := prepareFileDest()
 	if err != nil {
@@ -30,15 +30,14 @@ func New(repoURL, cloneBranch, prTargetBranch string, chainInfo *types.ChainInfo
 	}
 
 	// Clone the repo
-	repo := gitcmd.Clone(repoURL, path, cloneBranch)
+	repo := gitcmd.Clone(gitConfig.RepoURL, path, gitConfig.CloneBranch)
 
 	return &Repo{
-		Repo:           repo,
-		ChainConfig:    chainConfig,
-		ChainInfo:      chainInfo,
-		Path:           path,
-		GitHubToken:    GitHubToken,
-		PrTargetBranch: prTargetBranch,
+		Repo:        repo,
+		ChainConfig: chainConfig,
+		ChainInfo:   chainInfo,
+		Path:        path,
+		GitConfig:   gitConfig,
 	}
 }
 
@@ -93,17 +92,17 @@ func (r *Repo) CopyImages() *Repo {
 }
 
 func (r *Repo) Commit() *Repo {
-	gitcmd.Commit(r.ChainInfo, r.Repo, r.IconFileName, r.LogoFileName)
+	gitcmd.Commit(r.ChainInfo, r.Repo, r.IconFileName, r.LogoFileName, r.GitConfig.Username, r.GitConfig.Email)
 	return r
 }
 
 func (r *Repo) Push() *Repo {
-	gitcmd.Push(r.Repo, r.GitHubToken)
+	gitcmd.Push(r.Repo, r.GitConfig.AccessToken)
 	return r
 }
 
 func (r *Repo) PullRequest() *Repo {
-	err := gitcmd.PullRequest(r.ChainInfo, r.PrTargetBranch, r.GitHubToken)
+	err := gitcmd.PullRequest(r.ChainInfo, r.GitConfig.PrTargetBranch, r.GitConfig.AccessToken, r.GitConfig.RepoOrga, r.GitConfig.RepoName)
 	if err != nil {
 		utils.CheckError(fmt.Errorf("error while opening pull request : %s", err))
 	}
