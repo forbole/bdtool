@@ -87,7 +87,7 @@ func getTokenUnits() map[string]types.Token {
 	var tokenUnits = map[string]types.Token{}
 	i := 1
 	for {
-		tokenUnit := GetInput(fmt.Sprintf("Token Unit %v (udsm)", i))
+		tokenUnit := GetInput(fmt.Sprintf("Token Unit %v (e.g. udsm)", i))
 		display := GetInput("Display Format (e.g. dsm)")
 		exponent := GetInput("Exponent (e.g. 6)")
 		exponentInt, err := strconv.ParseInt(exponent, 10, 16)
