@@ -146,7 +146,7 @@ func getTheme(themeType string) types.Theme {
 	divider := getColorInput("divider")
 
 	// Text
-	primary := getColorInput("primary")
+	primary := getColorInput("Primary")
 	secondary := getColorInput("secondary")
 
 	// Fonts
