@@ -49,7 +49,7 @@ func getConfigFromCLI(chain *types.ChainInfo) *types.ChainConfig {
 	graphqlWs := GetInput("GraphQL Web Socket (e.g. wss://example.com/v1/graphql)")
 	publicRpcWs := GetInput("Public RPC Websocket (e.g. wss://rpc.example.com/websocket)")
 	basePath := GetInput("URL Base Path (e.g. /desmos)")
-	previewImage := GetInput("Preview image (https://s3.example.com/chain.png)")
+	previewImage := GetInput("Preview Image (e.g. https://s3.example.com/chain.png)")
 	matomoURL := GetInput("Matomo URL (https://example.bigdipper.live)")
 	matomoSiteID := GetInput("Matomo Site ID (1)")
 	defaultTheme := GetInput("Default Theme (light)")
