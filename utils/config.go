@@ -42,7 +42,7 @@ func getConfigFromCLI(chain *types.ChainInfo) *types.ChainConfig {
 	prefix := GetInput("Chain Prefix (e.g. desmos)")
 	genesisTime := GetInput("Genesis Time (e.g. 2021-08-31T15:00:00)")
 	genesisHeight := GetInput("Genesis Height")
-	primaryTokenUnit := GetInput("Primary Token Unit (udsm)")
+	primaryTokenUnit := GetInput("Primary Token Unit (e.g. udsm)")
 	votingPowerTokenUnit := GetInput("Voting Power Token Unit (udsm)")
 	tokenUnits := getTokenUnits()
 	graphqlEndpoint := GetInput("Graphql Endpoint (https://example.com/v1/graphql)")
