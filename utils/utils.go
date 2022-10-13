@@ -147,7 +147,7 @@ func getTheme(themeType string) types.Theme {
 
 	// Text
 	primary := getColorInput("Primary")
-	secondary := getColorInput("secondary")
+	secondary := getColorInput("Secondary")
 
 	// Fonts
 	fontOne := getColorInput("Font One")
