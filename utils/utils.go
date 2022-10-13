@@ -143,7 +143,7 @@ func getTheme(themeType string) types.Theme {
 	main := getColorInput("Main")
 	contrastText := getColorInput("Contrast Text")
 
-	divider := getColorInput("divider")
+	divider := getColorInput("Divider")
 
 	// Text
 	primary := getColorInput("Primary")
