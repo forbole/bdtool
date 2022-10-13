@@ -48,7 +48,7 @@ func getConfigFromCLI(chain *types.ChainInfo) *types.ChainConfig {
 	graphqlEndpoint := GetInput("Graphql Endpoint (https://example.com/v1/graphql)")
 	graphqlWs := GetInput("Graphql Web Socket (wss://example.com/v1/graphql)")
 	publicRpcWs := GetInput("Public Rpc Websocket (wss://rpc.example.com/websocket)")
-	basePath := GetInput("URL base path (/desmos)")
+	basePath := GetInput("URL Base Path (e.g. /desmos)")
 	previewImage := GetInput("Preview image (https://s3.example.com/chain.png)")
 	matomoURL := GetInput("Matomo URL (https://example.bigdipper.live)")
 	matomoSiteID := GetInput("Matomo Site ID (1)")
