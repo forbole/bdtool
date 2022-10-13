@@ -49,7 +49,7 @@ type Extra struct {
 type Endpoints struct {
 	Graphql            string `json:"graphql"`
 	GraphqlWebsocket   string `json:"graphqlWebsocket"`
-	PublicRpcWebsocket string `json:"publicRpcWebsocket"`
+	PublicRPCWebsocket string `json:"publicRpcWebsocket"`
 }
 
 type General struct {
