@@ -68,7 +68,7 @@ func GetBool(question string) bool {
 func ConfigWithCLI() bool {
 	prompt := promptui.Select{
 		Label: "Choose a method to create config file",
-		Items: []string{"config with CLI inputs", "import existing config json file"},
+		Items: []string{"create config with CLI inputs", "import existing config json file"},
 	}
 
 	_, result, err := prompt.Run()
