@@ -52,7 +52,7 @@ func getConfigFromCLI(chain *types.ChainInfo) *types.ChainConfig {
 	previewImage := GetInput("Preview Image (e.g. https://s3.example.com/chain.png)")
 	matomoURL := GetInput("Matomo URL (e.g. https://example.bigdipper.live)")
 	matomoSiteID := GetInput("Matomo Site ID (e.g. 1)")
-	defaultTheme := GetInput("Default Theme (light)")
+	defaultTheme := GetInput("Default Theme (e.g. light)")
 	themeList := getThemeList(defaultTheme)
 
 	fmt.Printf("\x1b[%dm%s\x1b[0m", 34, "Configuring colors, no need to specify '#' before the hex code")
