@@ -35,7 +35,7 @@ func PullRequest(chain *types.ChainInfo, targetBranch string, AccessToken string
 		return fmt.Errorf("error while creating pull request: %s", err)
 	}
 
-	// Add label "chainconfig"
+	// Add label "chain config"
 	_, _, err = client.Issues.AddLabelsToIssue(context.Background(), "forbole", "big-dipper-2.0-cosmos", *pr.Number, []string{"chain config"})
 	if err != nil {
 		return fmt.Errorf("error while adding label(s): %s", err)
