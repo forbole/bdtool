@@ -106,7 +106,7 @@ func getConfigFromCLI(chain *types.ChainInfo) *types.ChainConfig {
 func GetConfigBz(config *types.ChainConfig) []byte {
 	bz, err := json.MarshalIndent(config, "", "  ")
 	if err != nil {
-		CheckError(fmt.Errorf("error while making json: %s", err))
+		CheckError(fmt.Errorf("error while marshalling chain config: %s", err))
 	}
 
 	return bz
